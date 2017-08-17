@@ -47,7 +47,7 @@ export const generateGenericExportInterface = (cssModuleKeys, filename, indent) 
 `export interface ${interfaceName} {
 ${interfaceProperties}
 }
-
-export const locals: ${interfaceName};
+const locals: ${interfaceName};
+export default locals;
 `);
 };
