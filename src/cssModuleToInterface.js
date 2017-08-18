@@ -2,13 +2,13 @@ import path from 'path';
 
 const filenameToInterfaceName = (filename) => {
   return path.basename(filename)
-    .replace(/^(\w)/, (_, c) => 'I' + c.toUpperCase())
+    .replace(/^(\w)/, (_, c) => c.toUpperCase())
     .replace(/\W+(\w)/g, (_, c) => c.toUpperCase());
 };
 
 const cssModuleToTypescriptInterfaceProperties = (cssModuleKeys, indent = '  ') => {
   return cssModuleKeys
-    .map((key) => `${indent}'${key}': string;`)
+    .map((key) => `${indent} \"${key}\" = \"${key}\",`)
     .join('\n');
 };
 
@@ -44,10 +44,9 @@ export const generateGenericExportInterface = (cssModuleKeys, filename, indent) 
   const interfaceName = filenameToInterfaceName(filename);
   const interfaceProperties = cssModuleToTypescriptInterfaceProperties(cssModuleKeys, indent);
   return (
-`export interface ${interfaceName} {
+`declare enum ${interfaceName} {
 ${interfaceProperties}
 }
-const locals: ${interfaceName};
-export default locals;
+export default ${interfaceName};
 `);
 };
