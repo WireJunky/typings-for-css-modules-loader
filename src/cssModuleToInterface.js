@@ -31,7 +31,7 @@ export const filterNonWordClasses = (cssModuleKeys) => {
 export const filenameToTypingsFilename = (filename) => {
   const dirName = path.dirname(filename);
   const baseName = path.basename(filename);
-  return path.join(dirName, `${baseName}.d.ts`);
+  return path.join(dirName, `${baseName}.ts`);
 };
 
 export const generateNamedExports = (cssModuleKeys) => {
@@ -44,7 +44,7 @@ export const generateGenericExportInterface = (cssModuleKeys, filename, indent) 
   const interfaceName = filenameToInterfaceName(filename);
   const interfaceProperties = cssModuleToTypescriptInterfaceProperties(cssModuleKeys, indent);
   return (
-`declare enum ${interfaceName} {
+`const enum ${interfaceName} {
 ${interfaceProperties}
 }
 export default ${interfaceName};
