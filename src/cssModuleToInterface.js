@@ -8,7 +8,10 @@ const filenameToInterfaceName = (filename) => {
 
 const cssModuleToTypescriptInterfaceProperties = (cssModuleKeys, indent = '  ') => {
   return cssModuleKeys
-    .map((key) => `${indent} \"${key}\" = \"${key}\",`)
+    .map((key) => {
+      let camelCased = key.replace(/-([a-zA-Z0-9])/g, function (g) { return g[1].toUpperCase(); });
+      return `${indent} \"${camelCased}\" = \"${key}\",`;
+    })
     .join('\n');
 };
 
